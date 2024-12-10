@@ -28,14 +28,19 @@ public class SongController {
         this.artistService = artistService;
     }
 
-    @GetMapping("/songs")
-    public String getSongsPage(@RequestParam(required = false) String error, Model model){
-
-        if (error != null && !error.isEmpty()) {
-            model.addAttribute("hasError", true);
-            model.addAttribute("error", error);
+//    Изменете го методот getSongsPage за да ги презема песните од базата преку SongService.
+    @GetMapping({"/","/songs"})
+    public String getSongsPage(@RequestParam(required = false) Long trackId,
+                               @RequestParam(required = false) Long albumId,
+                               Model model){
+        List<Song> songs;
+        if (trackId != null) {
+//            songs = this.songService.findAllByAlbumId(albumId);
+//            model.addAttribute("albumsongs", songs);
+            Song selectedSong = this.songService.findByTrackId(trackId);
+            model.addAttribute("selectedSong", selectedSong);
+            return "redirect:/artists?trackId=" + trackId;
         }
-
 
         model.addAttribute("songs", this.songService.listSongs());
         return "listSongs";
@@ -101,5 +106,14 @@ public class SongController {
         song.setReleaseYear(releaseYear);
         song.setAlbum(albumService.findById(albumId).orElseThrow(InvalidAlbumExeption::new));
         return "redirect:/songs";
+    }
+
+//    Додајте поддршка за додавање/ажурирање на песни, притоа перзистирајќи ги податоците во базата.
+//    Осигурајте се дека при ажурирање, податоците се преземаат од базата и се прикажуваат во формата.
+    @GetMapping("/songs/byalbum")
+    public String findByAlbumId(@RequestParam(required = false) Long albumId,
+                                Model model){
+
+        return null;
     }
 }

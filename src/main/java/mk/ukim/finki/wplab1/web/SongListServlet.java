@@ -41,13 +41,13 @@ public class SongListServlet extends HttpServlet {
 
         WebContext context = new WebContext(webExchange);
         context.setVariable("songs",this.songService.listSongs());
-        springTemplateEngine.process("listSongs.html", context, resp.getWriter());
+        //springTemplateEngine.process("listSongs.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("trackId");
         req.getSession().setAttribute("trackId", id);
-        resp.sendRedirect("/listSongs");
+        //resp.sendRedirect("/listSongs");
     }
 }

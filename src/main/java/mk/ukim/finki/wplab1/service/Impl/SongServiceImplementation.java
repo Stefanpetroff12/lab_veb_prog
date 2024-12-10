@@ -4,6 +4,7 @@ import mk.ukim.finki.wplab1.model.Album;
 import mk.ukim.finki.wplab1.model.Artist;
 import mk.ukim.finki.wplab1.model.Song;
 import mk.ukim.finki.wplab1.repository.SongRepository;
+import mk.ukim.finki.wplab1.repository.jpa.SongRepositoryJpa;
 import mk.ukim.finki.wplab1.service.SongService;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.Optional;
 @Service
 public class SongServiceImplementation implements SongService {
     private final SongRepository songRepository;
+    private final SongRepositoryJpa songRepositoryJpa;
 
-    public SongServiceImplementation(SongRepository songRepository) {
+    public SongServiceImplementation(SongRepository songRepository, SongRepositoryJpa songRepositoryJpa) {
         this.songRepository = songRepository;
+        this.songRepositoryJpa = songRepositoryJpa;
     }
 
     @Override
@@ -42,6 +45,11 @@ public class SongServiceImplementation implements SongService {
     @Override
     public void deleteById(Long id) {
         this.songRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Song> findAllByAlbumId(Long albumId) {
+        return this.songRepositoryJpa.findAllByAlbum_Id(albumId);
     }
 
 

@@ -34,29 +34,30 @@
 <section>
     <h2>Select artist:</h2>
     <!-- Make changes to this code to dynamically display radio buttons for each artist as in the example -->
-    <form th:action="@{/listArtists}" th:method="POST">
-        <input type="radio" name="artistId" value="1"> Axl Rose <br/>
-        <input type="radio" name="artistId" value="2"> Jon Bon Jovi <br/>
-        <input type="radio" name="artistId" value="3"> David Bowie <br/>
-        <br/>
-
+    <form th:action="@{/artists}" th:method="GET">
+        <div th:each="artist: ${allArtists}">
+            <input type="radio" name="artistId" th:value="${artist.getId()}"
+                   th:text="${artist.getFirstName()} + ' ' + ${artist.getLastName()}" /><br/>
+        </div>
         <button id="submit" type='submit'>Add artist</button>
-        <a id="back" href="/listArtists" type="button">Add artist</a>
     </form>
 </section>
 <aside>
-    <table>
-        <tr th:each="artist : ${artists}" class="artist">
-            <th th:text="${artist.getFirstName()}" colspan="2">
-                Artist
-            </th>
-            <th>
-                <!-- change to show selected trackId -->
-                <td><b>Track Id</b></td>
-                <td>2<th:block th:text="${trackId}"></th:block></td>
-            </th>
-        </tr>
-    </table>
+    <form>
+<!--        <div th:each="artist: ${selectedSong.getPerformers()}">-->
+<!--            <p th:text="${artist.getFirstName()} + ' ' + ${artist.getLastName()}"></p>-->
+        </div>
+        <table>
+            <tr th:each="artist : ${selectedSong.performers}" class="artist">
+                <th colspan="2">
+                    Artist
+                </th>
+                <td th:text="${artist.getFirstName()}">
+
+                </td>
+            </tr>
+        </table>
+    </form>
 </aside>
 </body>
 </html>

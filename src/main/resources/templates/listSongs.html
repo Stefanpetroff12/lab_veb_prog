@@ -20,7 +20,7 @@
         <button type="button">Add new song</button>
     </a>
     <h2>Choose a song:</h2>
-    <form th:method="POST" th:action="@{/artist}">
+    <form th:method="GET" th:action="@{/songs}">
         <div th:each="song : ${songs}">
             <input type="radio" name="trackId" th:value="${song.trackId}"
                    th:text="'Title: ' + ${song.title} + ', Genre: ' + ${song.genre} + ', Release Year: ' + ${song.releaseYear} + ', Album: ' + ${song.album}"><br/>
@@ -32,7 +32,13 @@
                 <button type="button">Edit song</button>
             </a>
         </div>
-        <input type='submit' value='Submit'>
+        <br/>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+<!--        <div th:each="as: ${albumsongs}">-->
+<!--            <p name="albumId" th:text="${as.getTitle()}"> </p>-->
+<!--        </div>-->
     </form>
 </main>
 </body>

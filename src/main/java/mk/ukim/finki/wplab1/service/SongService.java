@@ -12,6 +12,7 @@ public interface SongService {
     Artist addArtistToSong(Artist artist, Song song);
     Song findByTrackId(Long trackId);
     public Optional<Song> save(String title, String genre, Integer releaseYear, Album album);
-
     void deleteById(Long id);
+
+    List<Song> findAllByAlbumId (Long albumId);
 }
